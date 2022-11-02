@@ -1,9 +1,6 @@
 package ru.job4j.collection;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 
 public class SimpleArrayList<T> implements SimpleList<T> {
 
@@ -28,7 +25,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     }
 
     private T[] grow() {
-        T[] copy = (T[]) new Object[container.length * 2];
+        T[] copy = Arrays.copyOf(container, container.length * 2);
         System.arraycopy(container, 0, copy, 0, container.length);
         return copy;
     }
@@ -44,13 +41,14 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     @Override
     public T remove(int index) {
         Objects.checkIndex(index, size);
+        T copy = container[index];
         modCount++;
-        T copy;
         int tmp = size - 1;
         if (tmp > index) {
-            System.arraycopy(container, 0, container, 0, tmp);
+            System.arraycopy(container, index + 1, container, index, tmp - index);
+            size--;
         }
-        return container[index];
+        return copy;
     }
 
     @Override
@@ -67,19 +65,24 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            //
+            int expectedModCount = modCount;
+            int cursor = 0;
+
             @Override
             public boolean hasNext() {
-                return true;
+                return cursor < size;
             }
 
-            //
             @Override
             public T next() {
-                return null;
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                return container[cursor++];
             }
-//
-//        };
         };
     }
 }
