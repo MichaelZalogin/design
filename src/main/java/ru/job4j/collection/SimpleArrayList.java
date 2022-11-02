@@ -41,14 +41,13 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     @Override
     public T remove(int index) {
         Objects.checkIndex(index, size);
-        T copy = container[index];
+        T removedElement = container[index];
         modCount++;
-        int tmp = size - 1;
-        if (tmp > index) {
-            System.arraycopy(container, index + 1, container, index, tmp - index);
-            size--;
+        size--;
+        if (size > index) {
+            System.arraycopy(container, index + 1, container, index, size - index);
         }
-        return copy;
+        return removedElement;
     }
 
     @Override
