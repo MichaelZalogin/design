@@ -18,35 +18,32 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     public void add(T value) {
         modCount++;
         if (size == container.length) {
-            container = grow();
+            grow();
         }
-        container[size] = value;
-        size++;
+        container[size++] = value;
     }
 
-    private T[] grow() {
-        T[] copy = Arrays.copyOf(container, container.length * 2);
-        System.arraycopy(container, 0, copy, 0, container.length);
-        return copy;
+    void grow() {
+        container = Arrays.copyOf(container, size == 0
+                ? container.length + 1
+                : container.length * 2);
+        System.arraycopy(container, 0, container, 0, container.length);
     }
 
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, size);
-        T oldValue = container[index];
+        T oldValue = get(index);
         container[index] = newValue;
         return oldValue;
     }
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, size);
-        T removedElement = container[index];
+        T removedElement = get(index);
         modCount++;
         size--;
-        if (size > index) {
-            System.arraycopy(container, index + 1, container, index, size - index);
-        }
+        System.arraycopy(container, index + 1, container, index, size - index);
+        container[size] = null;
         return removedElement;
     }
 
@@ -69,6 +66,9 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
             @Override
             public boolean hasNext() {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
                 return cursor < size;
             }
 
@@ -76,9 +76,6 @@ public class SimpleArrayList<T> implements SimpleList<T> {
             public T next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
-                }
-                if (expectedModCount != modCount) {
-                    throw new ConcurrentModificationException();
                 }
                 return container[cursor++];
             }
