@@ -23,7 +23,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         container[size++] = value;
     }
 
-    void grow() {
+    private void grow() {
         container = Arrays.copyOf(container, size == 0
                 ? container.length + 1
                 : container.length * 2);
