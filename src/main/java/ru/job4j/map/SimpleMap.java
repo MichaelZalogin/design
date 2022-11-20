@@ -1,6 +1,7 @@
 package ru.job4j.map;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 public class SimpleMap<K, V> implements Map<K, V> {
 
@@ -16,19 +17,28 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
+
         return false;
     }
 
     private int hash(int hashCode) {
-        return 0;
+        return hashCode == 0 ? 0 : hashCode ^ (hashCode >>> 16);
     }
 
     private int indexFor(int hash) {
-        return 0;
+        return hash & table.length - 1;
     }
 
     private void expand() {
-
+        capacity = capacity * 2;
+        MapEntry<K, V>[] newTable = new MapEntry[capacity];
+        for (int i = 0; i < table.length; i++) {
+            MapEntry<K, V> mapEntry = table[i];
+            if (mapEntry != null) {
+                newTable[indexFor(hash(Objects.hashCode(mapEntry.key)))] = mapEntry;
+            }
+        }
+        table = newTable;
     }
 
     @Override
