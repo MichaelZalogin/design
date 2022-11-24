@@ -19,7 +19,7 @@ public class User {
     public static void main(String[] args) {
         User user1 = new User("Michael", 10, new GregorianCalendar(2015, Calendar.JUNE, 29));
         User user2 = new User("Michael", 10, new GregorianCalendar(2015, Calendar.JUNE, 29));
-        Map<User, Object> map = new HashMap<>();
+        HashMap<User, Object> map = new HashMap<>();
         map.put(user1, new Object());
         int hashCode1 = user1.hashCode();
         int hash1 = hashCode1 ^ (hashCode1 >>> 16);
