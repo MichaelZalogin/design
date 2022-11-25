@@ -60,30 +60,28 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         V result = null;
-        int index = indexFor(hash(Objects.hashCode(key)));
         if (compareKey(key)) {
-                result = table[index].value;
-            }
+            result = table[getIndex(key)].value;
+        }
         return result;
     }
 
     private boolean compareKey(K key) {
-            int index = getIndex(key);
-            return table[index] != null
-                    && hash(Objects.hashCode(key)) == hash(Objects.hashCode(table[index].key))
-                    && Objects.equals(key, table[index].key);
+        int index = getIndex(key);
+        return table[index] != null
+                && hash(Objects.hashCode(key)) == hash(Objects.hashCode(table[index].key))
+                && Objects.equals(key, table[index].key);
     }
 
     @Override
     public boolean remove(K key) {
         boolean result = false;
-        int index = getIndex(key);
         if (compareKey(key)) {
-                table[index] = null;
-                modCount++;
-                count--;
-                result = true;
-            }
+            table[getIndex(key)] = null;
+            modCount++;
+            count--;
+            result = true;
+        }
         return result;
     }
 
