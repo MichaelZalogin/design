@@ -15,21 +15,24 @@ public class SimpleTree<E> implements Tree<E> {
         Optional<Node<E>> optional = findBy(parent);
         boolean rsl = optional.isPresent() && findBy(child).isEmpty();
         if (rsl) {
-            Node<E> tmp = optional.get();
-            tmp.children.add(new Node<>(child));
+            optional.get().children.add(new Node<>(child));
         }
         return rsl;
     }
 
     @Override
     public boolean isBinary() {
-        boolean rsl = true;
+        return findByPredicate(el -> el.children.size() > 2).isEmpty();
+    }
+
+    private Optional<Node<E>> findByPredicate(Predicate<Node<E>> condition) {
+        Optional<Node<E>> rsl = Optional.empty();
         Queue<Node<E>> data = new LinkedList<>();
         data.offer(this.root);
         while (!data.isEmpty()) {
             Node<E> el = data.poll();
-            if (el.children.size() > 2) {
-                rsl = false;
+            if (condition.test(el)) {
+                rsl = Optional.of(el);
                 break;
             }
             data.addAll(el.children);
@@ -37,22 +40,8 @@ public class SimpleTree<E> implements Tree<E> {
         return rsl;
     }
 
-//    private Optional<Node<E>> findByPredicate(Predicate<Node<E>> condition) {
-//    }
-
     @Override
     public Optional<Node<E>> findBy(E value) {
-        Optional<Node<E>> rsl = Optional.empty();
-        Queue<Node<E>> data = new LinkedList<>();
-        data.offer(this.root);
-        while (!data.isEmpty()) {
-            Node<E> el = data.poll();
-            if (el.value.equals(value)) {
-                rsl = Optional.of(el);
-                break;
-            }
-            data.addAll(el.children);
-        }
-        return rsl;
+        return findByPredicate(el -> el.value.equals(value));
     }
 }
