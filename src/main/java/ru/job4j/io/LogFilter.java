@@ -1,8 +1,6 @@
 package ru.job4j.io;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,9 +21,21 @@ public class LogFilter {
         return stringList;
     }
 
+    public static void save(List<String> log, String file) {
+        try (PrintWriter print = new PrintWriter(new BufferedWriter(new FileWriter(file)))) {
+            if (log != null) {
+                for (String element : log) {
+                    print.println(element);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         LogFilter logFilter = new LogFilter();
         List<String> log = logFilter.filter("C:\\projects\\job4j_design\\src\\main\\java\\ru\\job4j\\io\\log.txt");
-        System.out.println(log);
+        save(log, "C:\\projects\\job4j_design\\src\\main\\java\\ru\\job4j\\io\\404.txt");
     }
 }
