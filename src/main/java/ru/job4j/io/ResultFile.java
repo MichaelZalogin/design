@@ -9,7 +9,7 @@ public class ResultFile {
     public static void main(String[] args) {
         try (PrintWriter out = new PrintWriter(
                 new BufferedOutputStream(
-                        new FileOutputStream("C:\\projects\\job4j_design\\src\\main\\java\\ru\\job4j\\io\\result.txt")))) {
+                        new FileOutputStream(".\\src\\main\\java\\ru\\job4j\\io\\result.txt")))) {
             out.println("Hello, world!");
         } catch (IOException e) {
             e.printStackTrace();

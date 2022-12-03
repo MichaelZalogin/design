@@ -35,7 +35,7 @@ public class LogFilter {
 
     public static void main(String[] args) {
         LogFilter logFilter = new LogFilter();
-        List<String> log = logFilter.filter("C:\\projects\\job4j_design\\src\\main\\java\\ru\\job4j\\io\\log.txt");
-        save(log, "C:\\projects\\job4j_design\\src\\main\\java\\ru\\job4j\\io\\404.txt");
+        List<String> log = logFilter.filter(".\\src\\main\\java\\ru\\job4j\\io\\log.txt");
+        save(log, ".\\src\\main\\java\\ru\\job4j\\io\\404.txt");
     }
 }

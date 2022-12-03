@@ -2,7 +2,7 @@ package ru.job4j.io;
 
 import java.util.StringJoiner;
 
-public class Matrix {
+public class MatrixExl {
     public static String multiple(int size) {
         int[][] array = new int[size][size];
         StringJoiner stringJoiner = new StringJoiner(" ");
