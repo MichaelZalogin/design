@@ -35,9 +35,7 @@ class ConfigTest {
         Config config = new Config(path);
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> {
-                    config.load();;
-                });
+                () -> config.load());
         assertThat(exception.getMessage()).isEqualTo("invalid template in: 1 lines!");
     }
 }
