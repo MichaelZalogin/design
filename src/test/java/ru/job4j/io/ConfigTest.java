@@ -15,7 +15,7 @@ class ConfigTest {
         assertThat(config.value("hibernate.dialect"))
                 .isEqualTo("org.hibernate.dialect.PostgreSQLDialect");
         assertThat(config.value("hibernate.connection.url"))
-                .isEqualTo("jdbc:postgresql://127.0.0.1:5432/trackstudio=1");
+                .isEqualTo("jdbc:postgresql:/127.0.0.1:5432/trackstudio=1");
         assertThat(config.value("hibernate.connection.password"))
                 .isEqualTo("password=");
     }
