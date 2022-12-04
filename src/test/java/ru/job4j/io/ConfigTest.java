@@ -36,6 +36,16 @@ class ConfigTest {
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
                 () -> config.load());
-        assertThat(exception.getMessage()).isEqualTo("invalid template in: 1 lines!");
+        assertThat(exception.getMessage()).isEqualTo("= org.hibernate.dialect.PostgreSQLDialect");
+    }
+
+    @Test
+    void whenPairNotContainsValue() {
+        String path = "./data/pair_not_contains_value.properties";
+        Config config = new Config(path);
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> config.load());
+        assertThat(exception.getMessage()).isEqualTo("hibernate.connection.url=");
     }
 }

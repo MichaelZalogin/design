@@ -16,17 +16,18 @@ public class Config {
 
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            int counterLines = 1;
             for (String line = read.readLine(); line != null; line = read.readLine()) {
                 if (line.startsWith("#") || line.isEmpty()) {
                     continue;
                 }
                 if (!line.contains("=") || line.startsWith("=")) {
-                    throw new IllegalArgumentException("invalid template in: " + counterLines + " lines!");
+                    throw new IllegalArgumentException(line);
                 }
                 String[] tmp = line.split("=", 2);
+                if (tmp[1].isEmpty()) {
+                    throw new IllegalArgumentException(line);
+                }
                 values.put(tmp[0], tmp[1]);
-                counterLines++;
             }
         } catch (IOException e) {
             e.printStackTrace();
