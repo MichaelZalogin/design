@@ -36,7 +36,7 @@ class ConfigTest {
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
                 () -> config.load());
-        assertThat(exception.getMessage()).isEqualTo("= org.hibernate.dialect.PostgreSQLDialect");
+        assertThat(exception.getMessage()).isEqualTo("Uncorrected line: = org.hibernate.dialect.PostgreSQLDialect");
     }
 
     @Test
@@ -46,6 +46,6 @@ class ConfigTest {
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
                 () -> config.load());
-        assertThat(exception.getMessage()).isEqualTo("hibernate.connection.url=");
+        assertThat(exception.getMessage()).isEqualTo("Uncorrected line: hibernate.connection.url=");
     }
 }

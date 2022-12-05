@@ -21,11 +21,11 @@ public class Config {
                     continue;
                 }
                 if (!line.contains("=") || line.startsWith("=")) {
-                    throw new IllegalArgumentException(line);
+                    throw new IllegalArgumentException("Uncorrected line: " + line);
                 }
                 String[] tmp = line.split("=", 2);
                 if (tmp[1].isEmpty()) {
-                    throw new IllegalArgumentException(line);
+                    throw new IllegalArgumentException("Uncorrected line: " + line);
                 }
                 values.put(tmp[0], tmp[1]);
             }
