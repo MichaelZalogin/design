@@ -5,20 +5,22 @@ import java.util.Objects;
 
 public class Analysis {
     public void unavailable(String source, String target) {
-        try (BufferedReader br = new BufferedReader(new FileReader(source));
-             BufferedWriter bw = new BufferedWriter(new FileWriter(target))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(source));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(target))) {
             boolean flag = true;
             String[] trimLine;
-            for (String line = br.readLine(); line != null; line = br.readLine()) {
+            for (String line = reader.readLine(); line != null; line = reader.readLine()) {
                 trimLine = line.split(" ", 2);
-                if (flag && (Objects.equals(trimLine[0], "500") || Objects.equals(trimLine[0], "400"))) {
-                    bw.write((trimLine[1]));
-                    bw.newLine();
+                if (flag && (Objects.equals(trimLine[0], "500")
+                        || Objects.equals(trimLine[0], "400"))) {
+                    writer.write((trimLine[1]));
+                    writer.write(";");
                     flag = false;
                 }
-                if (!flag && (Objects.equals(trimLine[0], "200") || Objects.equals(trimLine[0], "300"))) {
-                    bw.write((trimLine[1]));
-                    bw.newLine();
+                if (!flag && (Objects.equals(trimLine[0], "200")
+                        || Objects.equals(trimLine[0], "300"))) {
+                    writer.write((trimLine[1]));
+                    writer.write(";");
                     flag = true;
                 }
             }
