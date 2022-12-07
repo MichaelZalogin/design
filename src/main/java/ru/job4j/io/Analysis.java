@@ -14,6 +14,12 @@ public class Analysis {
                 if (flag && (Objects.equals(trimLine[0], "500") || Objects.equals(trimLine[0], "400"))) {
                     bw.write((trimLine[1]));
                     bw.newLine();
+                    flag = false;
+                }
+                if (!flag && (Objects.equals(trimLine[0], "200") || Objects.equals(trimLine[0], "300"))) {
+                    bw.write((trimLine[1]));
+                    bw.newLine();
+                    flag = true;
                 }
             }
         } catch (IOException e) {
