@@ -33,4 +33,22 @@ class ArgsNameTest {
         assertThatThrownBy(() -> ArgsName.of(new String[]{}))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    void whenKeyNotExist() {
+        ArgsName jvm = ArgsName.of(new String[] {"-=Value"});
+        assertThatThrownBy(() -> jvm.get("Key")).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void whenValueNotExist() {
+        assertThatThrownBy(() -> ArgsName.of(new String[] {"-Key="}))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void whenEqualSignNotExist() {
+        assertThatThrownBy(() -> ArgsName.of(new String[] {"-Key:Value"}))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
