@@ -14,21 +14,16 @@ public class ArgsName {
         return values.get(key);
     }
 
-    private static void validate(String[] args) {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Args is null. Run with \"-key = value\" arg");
-        }
-        for (String argument : args) {
-            if (!argument.startsWith("-") || !argument.contains("=")
-                    || argument.indexOf("=") == argument.length() - 1) {
-                throw new IllegalArgumentException("the args must start with \"-\" and contains \"=\"");
-            }
+    private static void validate(String argument) {
+        if (!argument.startsWith("-") || !argument.contains("=")
+                || argument.indexOf("=") == argument.length() - 1) {
+            throw new IllegalArgumentException("the args must start with \"-\" and contains \"=\"");
         }
     }
 
     private void parse(String[] args) {
-        validate(args);
         for (String argument : args) {
+            validate(argument);
             String[] lines = argument.split("=", 2);
             values.put(lines[0], lines[1]);
             String[] tmp = argument.substring(1).split("=", 2);
@@ -37,6 +32,9 @@ public class ArgsName {
     }
 
     public static ArgsName of(String[] args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Args is null. Run with \"-key = value\" arg");
+        }
         ArgsName names = new ArgsName();
         names.parse(args);
         return names;

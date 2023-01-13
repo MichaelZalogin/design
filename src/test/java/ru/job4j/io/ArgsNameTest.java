@@ -51,4 +51,10 @@ class ArgsNameTest {
         assertThatThrownBy(() -> ArgsName.of(new String[] {"-Key:Value"}))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    void whenKeyDoesNotStartWithDash() {
+        assertThatThrownBy(() -> ArgsName.of(new String[] {"Xmx=512"}))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
