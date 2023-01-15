@@ -1,0 +1,8 @@
+Hello
+Goodbye
+Good Day
+Ok
+No
+Close
+Open
+Line
