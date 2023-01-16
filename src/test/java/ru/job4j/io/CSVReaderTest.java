@@ -31,7 +31,8 @@ class CSVReaderTest {
                 "Jack;Undergraduate",
                 "William;Secondary special"
         ).concat(System.lineSeparator());
-        CSVReader.handle(argsName);
+        CSVReader csvReader = new CSVReader();
+        csvReader.handle(argsName);
         assertThat(Files.readString(target.toPath())).isEqualTo(expected);
     }
 
@@ -58,7 +59,8 @@ class CSVReaderTest {
                 "Undergraduate,25,Johnson",
                 "Secondary special,30,Brown"
         ).concat(System.lineSeparator());
-        CSVReader.handle(argsName);
+        CSVReader csvReader = new CSVReader();
+        csvReader.handle(argsName);
         assertThat(Files.readString(target.toPath())).isEqualTo(expected);
     }
 }

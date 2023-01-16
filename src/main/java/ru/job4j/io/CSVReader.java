@@ -4,18 +4,16 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 import java.util.StringJoiner;
-import java.util.function.Predicate;
 
 public class CSVReader {
 
-    private final List<String> stringsCSV = new ArrayList<>();
+    private final List<String> inputCSV = new ArrayList<>();
+    private final List<String> outputCSV = new ArrayList<>();
 
-    public static void handle(ArgsName argsName) {
-
-    }
-
-    private Predicate<String> filter(String answer) {
-        return null;
+    public void handle(ArgsName argsName) throws IOException {
+        this.readInputCSV(argsName.get("path"), argsName.get("delimiter"));
+        this.filter(argsName.get("filter"));
+        this.writeOutputCSV(argsName.get("out"));
     }
 
     private static ArgsName validateArg(String[] args) {
@@ -35,30 +33,46 @@ public class CSVReader {
         return argsName;
     }
 
-//    public void readCSV(String file) {
-//        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                stringsCSV.add(line);
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private void filter(String filterArgs) {
+        String[] args = filterArgs.split(",");
+        for (String arg : args) {
+            int index = inputCSV.indexOf(arg);
+            if (index == -1) {
+                throw new IllegalArgumentException(
+                        String.format("Field %s not exist", arg));
+            }
+            outputCSV.add(arg);
+//            System.out.println(inputCSV);
+//            System.out.println(inputCSV.indexOf(args));
+//            outputCSV.add(inputCSV.get());
+        }
+    }
 
-    public void readCSV(String file) throws FileNotFoundException {
-        File file1 = new File(file);
-        try (Scanner scanner = new Scanner(file1).useDelimiter(";")) {
-            while (scanner.hasNextLine()) {
-                stringsCSV.add(scanner.nextLine());
+    public void readInputCSV(String path, String delimiter) throws FileNotFoundException {
+        File file = new File(path);
+        try (Scanner scanner = new Scanner(file).useDelimiter(delimiter)) {
+            while (scanner.hasNext()) {
+                inputCSV.add(scanner.next());
+            }
+//            for (String arg : inputCSV) {
+//                System.out.println(arg);
+//            }
+            System.out.println(inputCSV.get(4));
+        }
+    }
+
+    public void writeOutputCSV(String file) throws IOException {
+        try (BufferedWriter br = new BufferedWriter(new FileWriter(file))) {
+            for (String data : outputCSV) {
+                br.write(data);
+                br.write(" ");
             }
         }
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
-//        ArgsName argsName = CSVReader.validate(args);
-//        handle(argsName);
+    public static void main(String[] args) throws IOException {
         CSVReader csvReader = new CSVReader();
-        csvReader.readCSV("C:\\projects\\job4j_design\\data\\table.csv");
+        ArgsName argsName = validateArg(args);
+        csvReader.handle(argsName);
     }
 }
