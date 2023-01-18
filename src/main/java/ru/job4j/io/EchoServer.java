@@ -11,10 +11,19 @@ public class EchoServer {
                 try (OutputStream out = socket.getOutputStream();
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
-                    out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     String line = in.readLine();
-                    if (line.matches(".+msg=Bye.+")) {
+                    if (line != null && !line.isEmpty() && line.matches(".+msg=Hello.+")) {
+                        out.write(("HTTP/1.1 200 OK \r\n\r\n").getBytes());
+                        out.write(("Hello").getBytes());
+                    }
+
+                    if (line != null && !line.isEmpty() && line.matches(".+msg=Exit.+")) {
                         server.close();
+                    }
+                    if (line != null && !line.isEmpty()
+                            && !line.matches(".+msg=Hello.+") && !line.matches(".+msg=Exit.+")) {
+                        out.write(("HTTP/1.1 200 OK \r\n\r\n").getBytes());
+                        out.write(("What").getBytes());
                     }
                     out.flush();
                 }
