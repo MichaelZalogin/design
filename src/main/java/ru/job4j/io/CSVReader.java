@@ -35,13 +35,10 @@ public class CSVReader {
                     }
                 }
             }
-            /** тестировать тут */
-            for (int i = 0; i < indexes.size(); i++) {
-                if (i % filter.length == 0) {
-                    joiner.add(System.lineSeparator());
-                }
-                joiner.add(columns.get(i));
+            for (var index : indexes) {
+                joiner.add(columns.get(index));
             }
+            joiner.add(System.lineSeparator());
             flag = false;
         }
         return joiner.toString();
@@ -62,9 +59,7 @@ public class CSVReader {
 
     public static void writeOutputCSV(String path, String outputCSV) {
         try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(path)))) {
-            System.out.println(outputCSV);
-            writer.println(outputCSV);
-            writer.println(System.lineSeparator());
+            writer.print(outputCSV);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,5 +80,10 @@ public class CSVReader {
                     String.format("Second arg %s is not file", firstArg.getAbsoluteFile()));
         }
         return argsName;
+    }
+
+    public static void main(String[] args) {
+        ArgsName argsName = validateArg(args);
+        handle(argsName);
     }
 }
