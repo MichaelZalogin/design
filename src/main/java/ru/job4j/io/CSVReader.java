@@ -20,6 +20,9 @@ public class CSVReader {
         }
     }
 
+    /**
+     * Проблема в этом методе
+     */
     public static String filter(List<String> readInputCSV, String[] filter, String delimiter) {
         List<Integer> indexes = new ArrayList<>();
         StringJoiner joiner = new StringJoiner(delimiter);
@@ -35,6 +38,8 @@ public class CSVReader {
                     }
                 }
             }
+            /** Проблема тут.
+             *  Набирается делиметр в строку */
             for (var index : indexes) {
                 joiner.add(columns.get(index));
             }
@@ -82,6 +87,10 @@ public class CSVReader {
         return argsName;
     }
 
+    /**
+     * @param args параметры запуска:
+     *             -path=data/table.csv -delimiter=,  -out=stdout -filter=last_name,age
+     */
     public static void main(String[] args) {
         ArgsName argsName = validateArg(args);
         handle(argsName);

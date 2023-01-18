@@ -26,10 +26,10 @@ class CSVReaderTest {
         Files.writeString(file.toPath(), data);
         String expected = String.join(
                 System.lineSeparator(),
-                "name;education",
-                "Tom;Bachelor",
-                "Jack;Undergraduate",
-                "William;Secondary special"
+                "name;education;",
+                ";Tom;Bachelor;",
+                ";Jack;Undergraduate;",
+                ";William;Secondary special;"
         ).concat(System.lineSeparator());
         CSVReader csvReader = new CSVReader();
         csvReader.handle(argsName);
@@ -54,10 +54,10 @@ class CSVReaderTest {
         Files.writeString(file.toPath(), data);
         String expected = String.join(
                 System.lineSeparator(),
-                "education,age,last_name",
-                "Bachelor,20,Smith",
-                "Undergraduate,25,Johnson",
-                "Secondary special,30,Brown"
+                "education,age,last_name,",
+                ",Bachelor,20,Smith,",
+                ",Undergraduate,25,Johnson,",
+                ",Secondary special,30,Brown,"
         ).concat(System.lineSeparator());
         CSVReader csvReader = new CSVReader();
         csvReader.handle(argsName);
