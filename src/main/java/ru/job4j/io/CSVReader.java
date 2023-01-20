@@ -8,26 +8,25 @@ public class CSVReader {
 
     public static void handle(ArgsName argsName) {
         String[] filter = argsName.get("filter").split(",");
-        List<String> readInputCSV = readInputCSV(argsName.get("path"));
+        List<String> inputCSV = readInputCSV(argsName.get("path"));
         String delimiter = argsName.get("delimiter");
         String output = argsName.get("out");
-        String filterData = filter(readInputCSV, filter, delimiter);
+        List<String> outputCSV = filter(inputCSV, filter, delimiter);
         if ("stdout".equals(output)) {
-            System.out.println(filterData);
+            for (String element : outputCSV) {
+                System.out.print(element);
+            }
         }
         if (!"stdout".equals(output)) {
-            writeOutputCSV(output, filterData);
+            writeOutputCSV(output, outputCSV);
         }
     }
 
-    /**
-     * Проблема в этом методе
-     */
-    public static String filter(List<String> readInputCSV, String[] filter, String delimiter) {
+    public static List<String> filter(List<String> inputCSV, String[] filter, String delimiter) {
         List<Integer> indexes = new ArrayList<>();
-        StringJoiner joiner = new StringJoiner(delimiter);
+        List<String> outputCSV = new ArrayList<>();
         boolean flag = true;
-        for (String data : readInputCSV) {
+        for (String data : inputCSV) {
             List<String> columns = Arrays.asList(data.split(delimiter));
             if (flag) {
                 for (var criteria : filter) {
@@ -38,15 +37,15 @@ public class CSVReader {
                     }
                 }
             }
-            /** Проблема тут.
-             *  Набирается делиметр в строку */
+            flag = false;
+            StringJoiner joiner = new StringJoiner(delimiter);
             for (var index : indexes) {
                 joiner.add(columns.get(index));
             }
-            joiner.add(System.lineSeparator());
-            flag = false;
+            outputCSV.add(joiner.toString());
+            outputCSV.add(System.lineSeparator());
         }
-        return joiner.toString();
+        return outputCSV;
     }
 
     public static List<String> readInputCSV(String path) {
@@ -62,9 +61,11 @@ public class CSVReader {
         return inputCSV;
     }
 
-    public static void writeOutputCSV(String path, String outputCSV) {
-        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(path)))) {
-            writer.print(outputCSV);
+    public static void writeOutputCSV(String path, List<String> outputCSV) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path))) {
+            for (String element : outputCSV) {
+                bufferedWriter.write(element);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -87,10 +88,6 @@ public class CSVReader {
         return argsName;
     }
 
-    /**
-     * @param args параметры запуска:
-     *             -path=data/table.csv -delimiter=,  -out=stdout -filter=last_name,age
-     */
     public static void main(String[] args) {
         ArgsName argsName = validateArg(args);
         handle(argsName);
