@@ -30,5 +30,11 @@ public class UsageLog4j {
         LOG.debug("Name variable: f, value : {}", f);
         LOG.debug("Name variable: g, value : {}", g);
         LOG.debug("Name variable: h, value : {}", h);
+
+        try {
+            throw new Exception("Not supported code");
+        } catch (Exception k) {
+            LOG.error("Exception in log example", k);
+        }
     }
 }
