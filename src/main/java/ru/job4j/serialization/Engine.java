@@ -29,6 +29,22 @@ public class Engine {
         this.isPetrol = isPetrol;
     }
 
+    public int getHorsePower() {
+        return this.horsePower;
+    }
+
+    public int getAmoungCilinders() {
+        return this.amoungCilinders;
+    }
+
+    public String getBrand() {
+        return this.brand;
+    }
+
+    public boolean isPetrol() {
+        return this.isPetrol;
+    }
+
     @Override
     public String toString() {
         return "Engine{"

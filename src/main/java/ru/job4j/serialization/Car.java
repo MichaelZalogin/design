@@ -1,5 +1,7 @@
 package ru.job4j.serialization;
 
+import org.json.JSONObject;
+
 import java.io.StringWriter;
 import java.util.Arrays;
 import javax.xml.bind.*;
@@ -35,6 +37,26 @@ public class Car {
         this.parameters = parameters;
     }
 
+    public boolean isRapid() {
+        return this.rapid;
+    }
+
+    public int getEngineVolume() {
+        return this.engineVolume;
+    }
+
+    public String getNumber() {
+        return this.number;
+    }
+
+    public Engine getEngine() {
+        return this.engine;
+    }
+
+    public String[] getParameters() {
+        return this.parameters;
+    }
+
     @Override
     public String toString() {
         return "Car{"
@@ -64,5 +86,12 @@ public class Car {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        JSONObject jsonCar = new JSONObject(nissan);
+        System.out.println(jsonCar.toString());
+
+        JSONObject jsonEngine = new JSONObject("{\"horsePower\":160,\"amoungCilinders\":8,"
+                + "\"petrol\":true,\"brand\":\"NissanEngine\"}");
+        System.out.println(jsonEngine);
     }
 }
