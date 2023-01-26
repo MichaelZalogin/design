@@ -1,0 +1,16 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<Car>
+    <rapid>true</rapid>
+    <engineVolume>4</engineVolume>
+    <number>f123as98</number>
+    <engine>
+        <horsePower>160</horsePower>
+        <amoungCilinders>8</amoungCilinders>
+        <brand>NissanEngine</brand>
+        <isPetrol>true</isPetrol>
+    </engine>
+    <parameters>
+        <parameter>red</parameter>
+        <parameter>sedan</parameter>
+    </parameters>
+</Car>
