@@ -1,15 +1,15 @@
 
 CREATE TABLE employees (
 id serial PRIMARY KEY,
-name varchar (255),
 surname varchar(255),
-department text
+department text,
+manager boolean
 );
 
 SELECT * FROM employees;
 
 INSERT INTO employees (name,surname,department)
-VALUES ('Ivan', 'Ivanov', 'Google');
+VALUES ('Ivanov', 'Google', true);
 
 UPDATE employees SET department = 'Apple';
 
