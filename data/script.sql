@@ -8,7 +8,7 @@ manager boolean
 
 SELECT * FROM employees;
 
-INSERT INTO employees (name,surname,department)
+INSERT INTO employees (surname,department,manager)
 VALUES ('Ivanov', 'Google', true);
 
 UPDATE employees SET department = 'Apple';
