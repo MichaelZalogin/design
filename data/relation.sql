@@ -22,7 +22,7 @@ CREATE TABLE employee (
 id serial PRIMARY KEY,
 name varchar(50),
 last_name varchar(255),
-official_car_id int REFERENCES car(id)
+official_car_id int REFERENCES car(id) UNIQUE
 );
 
 --many-to-many
