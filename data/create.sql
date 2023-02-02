@@ -48,7 +48,7 @@ CREATE TABLE comments
 CREATE TABLE attachs
 (
     attachs_id  serial PRIMARY KEY,
-    format_fail varchar(255),
+    format_file varchar(255),
     item        INT REFERENCES item (item_id)
 );
 
@@ -57,8 +57,6 @@ CREATE TABLE category
     category_id   serial PRIMARY KEY,
     category_name varchar(255)
 );
-
-DROP TABLE category;
 
 CREATE TABLE state
 (

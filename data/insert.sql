@@ -33,7 +33,7 @@ VALUES ('Anything text number 1', '2022-02-02', 1),
        ('Anything text number 2', '2022-02-02', 2),
        ('Anything text number 3', '2022-02-02', 1);
 
-INSERT INTO attachs (format_fail, item)
+INSERT INTO attachs (format_file, item)
 VALUES ('file format 1', 2),
        ('file format 2', 1),
        ('file format 3', 2),
