@@ -14,16 +14,17 @@ CREATE TABLE role
 
 CREATE TABLE rules
 (
-    rule_id serial PRIMARY KEY,
-    rule    TEXT
+    rule_id     serial PRIMARY KEY,
+    remove_item boolean,
+    edit_item   boolean,
+    edit_status boolean
 );
 
 CREATE TABLE role_rules_compose
 (
-    id   serial PRIMARY KEY,
     role int REFERENCES role (role_id),
     rule int REFERENCES rules (rule_id),
-    CONSTRAINT book_author_pkey PRIMARY KEY (role, rule)
+    CONSTRAINT role_rule_pkey PRIMARY KEY (role, rule)
 );
 
 CREATE TABLE item
@@ -31,7 +32,7 @@ CREATE TABLE item
     item_id     serial PRIMARY KEY,
     item_name   varchar(55),
     create_date date,
-    user        INT REFERENCES users (user_id),
+    user_id     INT REFERENCES users (user_id),
     category    INT REFERENCES category (category_id),
     state       INT REFERENCES state (state_id)
 );
@@ -54,8 +55,7 @@ CREATE TABLE attachs
 CREATE TABLE category
 (
     category_id   serial PRIMARY KEY,
-    category_name varchar(255),
-    item          INT REFERENCES item (item_id)
+    category_name varchar(255)
 );
 
 CREATE TABLE state
