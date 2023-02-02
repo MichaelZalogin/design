@@ -49,3 +49,4 @@ INSERT INTO state (status_state, state_item)
 VALUES (TRUE, 'Anything state 1'),
        (FALSE, 'Anything state 2'),
        (TRUE, 'Anything state 3');
+
