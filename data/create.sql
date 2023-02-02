@@ -1,7 +1,7 @@
 CREATE TABLE users
 (
     user_id      serial PRIMARY KEY,
-    user_name    varchar(55),
+    user_name    varchar(255),
     user_surname varchar(255),
     role         INT REFERENCES role (role_id)
 );
@@ -48,7 +48,7 @@ CREATE TABLE comments
 CREATE TABLE attachs
 (
     attachs_id  serial PRIMARY KEY,
-    format_fail boolean,
+    format_fail varchar(255),
     item        INT REFERENCES item (item_id)
 );
 
@@ -57,6 +57,8 @@ CREATE TABLE category
     category_id   serial PRIMARY KEY,
     category_name varchar(255)
 );
+
+DROP TABLE category;
 
 CREATE TABLE state
 (
