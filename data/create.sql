@@ -1,11 +1,3 @@
-CREATE TABLE users
-(
-    user_id      serial PRIMARY KEY,
-    user_name    varchar(255),
-    user_surname varchar(255),
-    role         INT REFERENCES role (role_id)
-);
-
 CREATE TABLE role
 (
     role_id   serial PRIMARY KEY,
@@ -25,6 +17,27 @@ CREATE TABLE role_rules_compose
     role int REFERENCES role (role_id),
     rule int REFERENCES rules (rule_id),
     CONSTRAINT role_rule_pkey PRIMARY KEY (role, rule)
+);
+
+CREATE TABLE users
+(
+    user_id      serial PRIMARY KEY,
+    user_name    varchar(255),
+    user_surname varchar(255),
+    role         INT REFERENCES role (role_id)
+);
+
+CREATE TABLE category
+(
+    category_id   serial PRIMARY KEY,
+    category_name varchar(255)
+);
+
+CREATE TABLE state
+(
+    state_id     serial PRIMARY KEY,
+    status_state boolean,
+    state_item   text
 );
 
 CREATE TABLE item
@@ -50,17 +63,4 @@ CREATE TABLE attachs
     attachs_id  serial PRIMARY KEY,
     format_file varchar(255),
     item        INT REFERENCES item (item_id)
-);
-
-CREATE TABLE category
-(
-    category_id   serial PRIMARY KEY,
-    category_name varchar(255)
-);
-
-CREATE TABLE state
-(
-    state_id     serial PRIMARY KEY,
-    status_state boolean,
-    state_item   text
 );
