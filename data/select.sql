@@ -29,7 +29,7 @@ VALUES ('fish', 300, '1933-05-07');
 
 SELECT id, name, avg_age, discovery_date
 FROM fauna
-WHERE name LIKE 'fish';
+WHERE name LIKE '%fish%';
 
 SELECT id, name, avg_age, discovery_date
 FROM fauna
