@@ -60,8 +60,22 @@ VALUES (2, 1);
 SELECT AVG(price)
 FROM devices;
 
+--первый вариант запроса 4
 SELECT p.name, AVG(price)
 FROM people p
          INNER JOIN devices d ON p.id = d.id
+GROUP BY p.name;
+
+--второй вариант запроса 4
+SELECT p.name, AVG(price)
+FROM devices_people dp
+         INNER JOIN devices d ON dp.device_id = d.id
+         INNER JOIN people p ON dp.device_id = p.id
+GROUP BY p.name;
+
+SELECT p.name, AVG(price)
+FROM devices_people dp
+         INNER JOIN devices d ON dp.device_id = d.id
+         INNER JOIN people p ON dp.device_id = p.id
 GROUP BY p.name
 HAVING AVG(price) > 2000
