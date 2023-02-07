@@ -47,3 +47,32 @@ WHERE t.name ILIKE 'СЫР';
 SELECT name, price
 FROM product
 WHERE name ILIKE '%МОРОЖЕНОЕ%';
+
+SELECT name, expired_date
+FROM product
+WHERE expired_date < NOW();
+
+SELECT p.name, expired_date, price
+FROM product p
+WHERE price = (SELECT MAX(price) FROM product);
+
+SELECT t.name, COUNT(*)
+FROM type t
+         INNER JOIN product p ON t.id = p.type_id
+GROUP BY t.name;
+
+SELECT p.name, t.name
+FROM product p
+         INNER JOIN public.type t ON t.id = p.type_id
+WHERE t.name ILIKE 'СЫР'
+   OR t.name ILIKE 'МОЛОКО';
+
+SELECT t.name, COUNT(*)
+FROM type t
+         INNER JOIN product p ON t.id = p.type_id
+GROUP BY t.name
+HAVING COUNT(*) < 10;
+
+SELECT p.name, expired_date, price, t.name
+FROM product p
+         INNER JOIN public.type t ON t.id = p.type_id;
