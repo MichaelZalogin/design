@@ -70,12 +70,12 @@ GROUP BY p.name;
 SELECT p.name, AVG(price)
 FROM devices_people dp
          INNER JOIN devices d ON dp.device_id = d.id
-         INNER JOIN people p ON dp.device_id = p.id
+         INNER JOIN people p ON dp.people_id = p.id
 GROUP BY p.name;
 
 SELECT p.name, AVG(price)
 FROM devices_people dp
          INNER JOIN devices d ON dp.device_id = d.id
-         INNER JOIN people p ON dp.device_id = p.id
+         INNER JOIN people p ON dp.people_id = p.id
 GROUP BY p.name
-HAVING AVG(price) > 2000
+HAVING AVG(price) > 1100
