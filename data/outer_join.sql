@@ -97,16 +97,6 @@ VALUES (8, 'm');
 INSERT INTO teens (id_employee_name, gender)
 VALUES (9, 'f');
 
-SELECT e.name, e.gender, t.name, t.gender
-FROM (SELECT e.name, t1.gender
-      FROM teens t1
-               JOIN employees e ON t1.id_employee_name = e.id
-      WHERE gender = 'm') e
-         CROSS JOIN (SELECT e.name, t1.gender
-                     FROM teens t1
-                              JOIN employees e ON t1.id_employee_name = e.id
-                     WHERE gender = 'f') t;
-
 SELECT e1.name, t1.gender, e2.name, t2.gender
 FROM teens t1
          CROSS JOIN teens t2
