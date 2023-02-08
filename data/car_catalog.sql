@@ -91,3 +91,17 @@ SELECT t.name
 FROM car_transmissions t
          LEFT JOIN cars c ON t.id = c.engine_id
 WHERE c.name IS NULL;
+
+CREATE VIEW show_all_cars_with_parts AS
+SELECT c.id   AS car_id,
+       c.name AS car_name,
+       b.name AS body_name,
+       e.name AS engine_name,
+       t.name AS transmission_name
+FROM cars c
+         LEFT JOIN car_bodies b ON b.id = c.body_id
+         LEFT JOIN car_engines e ON e.id = c.engine_id
+         LEFT JOIN car_transmissions t ON t.id = c.transmission_id;
+
+SELECT *
+FROM show_all_cars_with_parts;
