@@ -101,20 +101,3 @@ END;
 $$
     LANGUAGE 'plpgsql';
 
---Триггер для двух таблиц
-CREATE TABLE history_of_price
-(
-    id    serial PRIMARY KEY,
-    name  varchar(50),
-    price integer,
-    date  timestamp
-);
-
-CREATE TRIGGER delivery_trigger2
-    AFTER INSERT
-    ON products
-    FOR EACH ROW
-EXECUTE PROCEDURE delivery();
-
-INSERT INTO products (name, producer, count, price)
-VALUES ('product_10', 'producer_10', 321, 5021);
