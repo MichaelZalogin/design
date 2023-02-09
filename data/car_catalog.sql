@@ -89,7 +89,7 @@ WHERE c.name IS NULL;
 
 SELECT t.name
 FROM car_transmissions t
-         LEFT JOIN cars c ON t.id = c.engine_id
+         LEFT JOIN cars c ON t.id = c.transmission_id
 WHERE c.name IS NULL;
 
 CREATE VIEW show_all_cars_with_parts AS
