@@ -13,9 +13,9 @@ CREATE TABLE employees
 
 CREATE TABLE teens
 (
-    id               serial PRIMARY KEY,
-    id_employee_name int REFERENCES employees (id),
-    gender           char(1) CHECK (gender LIKE 'm' OR gender LIKE 'f')
+    id     serial PRIMARY KEY,
+    name   varchar(255),
+    gender char(1) CHECK (gender LIKE 'm' OR gender LIKE 'f')
 );
 
 INSERT INTO departments (name)
@@ -78,29 +78,27 @@ SELECT e.name, d.name
 FROM departments d
          RIGHT JOIN employees e ON d.id = e.departments_id;
 
-INSERT INTO teens (id_employee_name, gender)
-VALUES (1, 'm');
-INSERT INTO teens (id_employee_name, gender)
-VALUES (2, 'm');
-INSERT INTO teens (id_employee_name, gender)
-VALUES (3, 'm');
-INSERT INTO teens (id_employee_name, gender)
-VALUES (4, 'f');
-INSERT INTO teens (id_employee_name, gender)
-VALUES (5, 'm');
-INSERT INTO teens (id_employee_name, gender)
-VALUES (6, 'm');
-INSERT INTO teens (id_employee_name, gender)
-VALUES (7, 'm');
-INSERT INTO teens (id_employee_name, gender)
-VALUES (8, 'm');
-INSERT INTO teens (id_employee_name, gender)
-VALUES (9, 'f');
+INSERT INTO teens (name, gender)
+VALUES ('Ivan', 'm');
+INSERT INTO teens (name, gender)
+VALUES ('Petr', 'm');
+INSERT INTO teens (name, gender)
+VALUES ('Victor', 'm');
+INSERT INTO teens (name, gender)
+VALUES ('Sveta', 'f');
+INSERT INTO teens (name, gender)
+VALUES ('Arni', 'm');
+INSERT INTO teens (name, gender)
+VALUES ('Andry', 'm');
+INSERT INTO teens (name, gender)
+VALUES ('Artem', 'm');
+INSERT INTO teens (name, gender)
+VALUES ('Igor', 'm');
+INSERT INTO teens (name, gender)
+VALUES ('Anastasia', 'f');
 
-SELECT e1.name, t1.gender, e2.name, t2.gender
+SELECT t1.name, t1.gender, t2.name, t2.gender
 FROM teens t1
          CROSS JOIN teens t2
-         LEFT JOIN employees e1 ON e1.id = t1.id_employee_name
-         LEFT JOIN employees e2 ON e2.id = t2.id_employee_name
 WHERE t1.gender <> t2.gender
   AND t1.gender = 'm';
