@@ -61,34 +61,55 @@ CREATE TRIGGER tax_trigger
 EXECUTE PROCEDURE tax();
 
 DROP TRIGGER tax_trigger ON products;
+
 -------------------------------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION tax()
+CREATE OR REPLACE FUNCTION tax_after_insert()
     RETURNS trigger AS
 $$
 BEGIN
     UPDATE products
     SET price = price + price * 0.2
     WHERE id = (SELECT id FROM inserted);
+    RETURN NULL;
+END;
+$$
+    LANGUAGE 'plpgsql';
+
+CREATE TRIGGER tax_trigger_after_insert
+    AFTER INSERT
+    ON products
+    REFERENCING new TABLE AS inserted
+    FOR EACH STATEMENT
+EXECUTE PROCEDURE tax_after_insert();
+
+-------------------------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION tax_before_insert()
+    RETURNS trigger AS
+$$
+BEGIN
+    new.price = price + price * 0.2;
     RETURN new;
 END;
 $$
     LANGUAGE 'plpgsql';
 
---После вставки данных statement уровень
-CREATE TRIGGER tax_trigger
-    AFTER INSERT
-    ON products
-    REFERENCING new TABLE AS inserted
-    FOR EACH STATEMENT
-EXECUTE PROCEDURE tax();
-
---До вставки данных row уровень
-CREATE TRIGGER tax_trigger2
+CREATE TRIGGER tax_trigger_before_insert
     BEFORE INSERT
     ON products
     FOR EACH ROW
-EXECUTE PROCEDURE tax();
+EXECUTE PROCEDURE tax_before_insert();
+
+-------------------------------------------------------------------------------------------
+
+CREATE TABLE history_of_price
+(
+    id    serial PRIMARY KEY,
+    name  varchar(50),
+    price integer,
+    date  timestamp
+);
 
 CREATE OR REPLACE FUNCTION delivery()
     RETURNS trigger AS
@@ -96,8 +117,13 @@ $$
 BEGIN
     INSERT INTO history_of_price (name, price, date)
     VALUES (new.name, new.price, NOW());
-    RETURN new;
+    RETURN NULL;
 END;
 $$
     LANGUAGE 'plpgsql';
 
+CREATE TRIGGER delivery_trigger2
+    AFTER INSERT
+    ON products
+    FOR EACH ROW
+EXECUTE PROCEDURE delivery();
