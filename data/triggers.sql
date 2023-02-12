@@ -89,7 +89,7 @@ CREATE OR REPLACE FUNCTION tax_before_insert()
     RETURNS trigger AS
 $$
 BEGIN
-    new.price = price + price * 0.2;
+    new.price = new.price + new.price * 0.2;
     RETURN new;
 END;
 $$
