@@ -71,7 +71,7 @@ BEGIN
     UPDATE products
     SET price = price + price * 0.2
     WHERE id = (SELECT id FROM inserted);
-    RETURN NULL;
+    RETURN NEW;
 END;
 $$
     LANGUAGE 'plpgsql';
@@ -117,7 +117,7 @@ $$
 BEGIN
     INSERT INTO history_of_price (name, price, date)
     VALUES (new.name, new.price, NOW());
-    RETURN NULL;
+    RETURN NEW;
 END;
 $$
     LANGUAGE 'plpgsql';
