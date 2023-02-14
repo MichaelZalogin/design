@@ -30,7 +30,8 @@ CREATE TABLE rental
     name      varchar(255),
     surname   varchar(255),
     adress    text,
-    id_gender int REFERENCES genders (id)
+    id_gender int REFERENCES genders (id),
+    UNIQUE (name, surname, adress)
 );
 
 INSERT INTO rental (name, surname, adress, id_gender)
