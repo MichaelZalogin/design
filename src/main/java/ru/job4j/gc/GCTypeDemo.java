@@ -1,8 +1,19 @@
 package ru.job4j.gc;
 
+import java.util.Objects;
 import java.util.Random;
 
 public class GCTypeDemo {
+    private String field;
+
+    public GCTypeDemo(String field) {
+        this.field = field;
+    }
+
+    public String getField() {
+        return field;
+    }
+
     public static void main(String[] args) {
         Random random = new Random();
         int length = 100;
