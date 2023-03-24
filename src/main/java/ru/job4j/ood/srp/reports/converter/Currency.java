@@ -1,4 +1,4 @@
-package ru.job4j.ood.srp.reports;
+package ru.job4j.ood.srp.reports.converter;
 
 public enum Currency {
     RUB,
