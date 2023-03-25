@@ -1,4 +1,4 @@
-package ru.job4j.ood.ocp.reports;
+package ru.job4j.ood.ocp.violation;
 
 import java.util.ArrayList;
 import java.util.List;

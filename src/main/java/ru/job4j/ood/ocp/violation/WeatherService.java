@@ -1,4 +1,4 @@
-package ru.job4j.ood.ocp.reports;
+package ru.job4j.ood.ocp.violation;
 
 public class WeatherService {
 
