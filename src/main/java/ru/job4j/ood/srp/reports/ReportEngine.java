@@ -6,14 +6,11 @@ public class ReportEngine {
 
     private final Report reportType;
 
-    private final Store store;
-
-    public ReportEngine(Report reportType, Store store) {
+    public ReportEngine(Report reportType) {
         this.reportType = reportType;
-        this.store = store;
     }
 
-    public String getReport(Predicate<Employee> filter, Store store) {
-        return reportType.generate(filter, store);
+    public String getReport(Predicate<Employee> filter) {
+        return reportType.generate(filter);
     }
 }

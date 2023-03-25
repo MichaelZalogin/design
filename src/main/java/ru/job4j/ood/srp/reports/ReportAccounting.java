@@ -16,15 +16,20 @@ public class ReportAccounting implements Report {
 
     private final Currency target;
 
-    public ReportAccounting(DateTimeParser<Calendar> dateTimeParser, CurrencyConverter currencyConverter, Currency source, Currency target) {
+    private final Store store;
+
+
+    public ReportAccounting(DateTimeParser<Calendar> dateTimeParser, CurrencyConverter currencyConverter,
+                            Currency source, Currency target, Store store) {
         this.dateTimeParser = dateTimeParser;
         this.currencyConverter = currencyConverter;
         this.source = source;
         this.target = target;
+        this.store = store;
     }
 
     @Override
-    public String generate(Predicate<Employee> filter, Store store) {
+    public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
         text.append("Name; Hired; Fired; Salary;")
                 .append(System.lineSeparator());
