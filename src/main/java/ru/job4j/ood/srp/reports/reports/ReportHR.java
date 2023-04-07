@@ -1,4 +1,7 @@
-package ru.job4j.ood.srp.reports;
+package ru.job4j.ood.srp.reports.reports;
+
+import ru.job4j.ood.srp.reports.Employee;
+import ru.job4j.ood.srp.reports.Store;
 
 import java.util.Comparator;
 import java.util.List;

@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import ru.job4j.ood.srp.reports.converter.Currency;
 import ru.job4j.ood.srp.reports.converter.CurrencyConverter;
 import ru.job4j.ood.srp.reports.converter.InMemoryCurrencyConverter;
+import ru.job4j.ood.srp.reports.reports.Report;
+import ru.job4j.ood.srp.reports.reports.ReportAccounting;
 
 import java.util.Calendar;
 import java.util.List;

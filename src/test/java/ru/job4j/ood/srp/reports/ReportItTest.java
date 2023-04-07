@@ -1,6 +1,8 @@
 package ru.job4j.ood.srp.reports;
 
 import org.junit.jupiter.api.Test;
+import ru.job4j.ood.srp.reports.reports.Report;
+import ru.job4j.ood.srp.reports.reports.ReportIt;
 
 import java.util.Calendar;
 import java.util.List;

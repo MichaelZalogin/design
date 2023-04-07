@@ -1,5 +1,8 @@
-package ru.job4j.ood.srp.reports;
+package ru.job4j.ood.srp.reports.reports;
 
+import ru.job4j.ood.srp.reports.DateTimeParser;
+import ru.job4j.ood.srp.reports.Employee;
+import ru.job4j.ood.srp.reports.Store;
 import ru.job4j.ood.srp.reports.converter.Currency;
 import ru.job4j.ood.srp.reports.converter.CurrencyConverter;
 
