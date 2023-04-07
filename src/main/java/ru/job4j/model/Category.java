@@ -12,4 +12,5 @@ public class Category {
     @Getter
     @Setter
     private String name;
+
 }
